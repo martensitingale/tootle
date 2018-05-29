@@ -64,9 +64,7 @@ public class Tootle.PostDialog : Gtk.Dialog {
         cancel.clicked.connect(() => this.destroy ());
         publish = add_button(_("Toot!"), 5) as Gtk.Button;
         publish.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        publish.clicked.connect (() => {
-            publish_post ();
-        });
+        publish.clicked.connect (publish_post);
         
         spoiler_text = new Gtk.Entry ();
         spoiler_text.margin_start = 6;
@@ -157,12 +155,12 @@ public class Tootle.PostDialog : Gtk.Dialog {
     public static void open (string? text = null, Status? reply_to = null) {
         if (dialog == null){
             dialog = new PostDialog (reply_to);
-		    dialog.destroy.connect (() => dialog = null);
-		    if (text != null)
-		        dialog.text.buffer.text = text;
-		}
-		else if (text != null)
-		    dialog.text.buffer.text += " " + text;
+            dialog.destroy.connect (() => dialog = null);
+            if (text != null)
+                dialog.text.buffer.text = text;
+        }
+        else if (text != null)
+            dialog.text.buffer.text += " " + text;
     }
     
     public static void open_reply (Status reply_to) {

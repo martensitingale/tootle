@@ -10,17 +10,17 @@ public class Tootle.MainWindow: Gtk.Window {
     public Tootle.HeaderBar header;
     public Stack primary_stack;
     public Stack secondary_stack;
-
+    
     construct {
         settings = Tootle.settings;
-    
+        
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/bleakgrey/tootle/app.css");
         StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         
         settings.changed.connect (update_theme);
         update_theme ();
-
+        
         toast = new Granite.Widgets.Toast ("");
         overlay = new Gtk.Overlay ();
         overlay.add_overlay (toast);
@@ -45,8 +45,9 @@ public class Tootle.MainWindow: Gtk.Window {
     }
     
     public MainWindow (Gtk.Application application) {
-         Object (application: application,
-         icon_name: "com.github.bleakgrey.tootle",
+        Object (
+            application: application,
+            icon_name: "com.github.bleakgrey.tootle",
             title: "Tootle",
             resizable: true
         );
